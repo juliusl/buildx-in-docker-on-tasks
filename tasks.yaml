@@ -1,0 +1,14 @@
+version: v1.1.0
+steps:
+- cmd: docker buildx bake "https://github.com/docker/buildx.git"
+- cmd: bash exec -- mvdir -p ~/.docker/cli-plugins
+- cmd: bash exec -- mv ./bin/build/buildx ~/.docker/cli-plugins/docker-buildx
+- build: |
+    --platform linux \
+    --tag {{.Run.Registry}}/test-provenance:{{.Run.ID}}
+    --attest=type=provenance \
+    --attest=type=sbom,generator=image \
+    --file Dockerfile \
+    --push \
+    .
+  cache: enabled
