@@ -179,3 +179,36 @@ container
 
 Run ID: ds2d was successful after 25s
 ```
+
+And your manifest should end up being an image index w/ the attestation manifest included,
+
+```jso
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.index.v1+json",
+  "manifests": [
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:0669e48baee1a732f0697ffffeb215f3f299667dfe13ee3dad9bdb50a3369c30",
+      "size": 671,
+      "platform": {
+        "architecture": "amd64",
+        "os": "linux"
+      }
+    },
+    {
+      "mediaType": "application/vnd.oci.image.manifest.v1+json",
+      "digest": "sha256:525df4f7425699b6e231f3fdf6ca46ba3fe07d57951f17073d1a5409e907a112",
+      "size": 839,
+      "annotations": {
+        "vnd.docker.reference.digest": "sha256:0669e48baee1a732f0697ffffeb215f3f299667dfe13ee3dad9bdb50a3369c30",
+        "vnd.docker.reference.type": "attestation-manifest"
+      },
+      "platform": {
+        "architecture": "unknown",
+        "os": "unknown"
+      }
+    }
+  ]
+}
+```
